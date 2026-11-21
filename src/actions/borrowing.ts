@@ -85,7 +85,13 @@ const requestItem: ActionHandler<Env> = async ({ userId, params, tools }) => {
   })
 }
 
-/** Lender says yes. The item becomes "borrowed". */
+/**
+ * Lender says yes.
+ *  1. The item must still be available (not already lent to someone else).
+ *  2. This request becomes "approved" and the item becomes "borrowed".
+ *  3. Every OTHER pending request for the same item is declined automatically,
+ *     so those borrowers aren't left waiting for something that's gone.
+ */
 const approveRequest: ActionHandler<Env> = async ({ userId, params, tools }) => {
   const requestId = readId(params, 'requestId')
   if (!requestId) return { success: false, error: 'requestId is required' }
@@ -96,15 +102,31 @@ const approveRequest: ActionHandler<Env> = async ({ userId, params, tools }) => 
 
   if (request.status !== 'pending') return { success: false, error: 'Only pending requests can be approved' }
 
+  // Step 1: is the item still available?
   const item = await tools.get<ItemData>('items', request.itemId)
   if (!item.success) return { success: false, error: 'Item not found' }
   if (item.data.record.data.status !== 'available') {
     return { success: false, error: 'This item is already lent out' }
   }
 
-  const updated = await tools.update('requests', requestId, { status: 'approved' })
-  if (!updated.success) return updated
-  return tools.update('items', request.itemId, { status: 'borrowed' })
+  // Step 2: approve this request and mark the item borrowed.
+  const approved = await tools.update('requests', requestId, { status: 'approved' })
+  if (!approved.success) return approved
+  const borrowed = await tools.update('items', request.itemId, { status: 'borrowed' })
+  if (!borrowed.success) return borrowed
+
+  // Step 3: decline everyone else who was waiting for this item.
+  const waiting = await tools.query<RequestData>('requests', {
+    where: { itemId: request.itemId, status: 'pending' },
+  })
+  if (!waiting.success) return waiting
+  for (const other of waiting.data.records) {
+    if (other.recordId === requestId) continue
+    const declined = await tools.update('requests', other.recordId, { status: 'declined' })
+    if (!declined.success) return declined
+  }
+
+  return { success: true, data: { recordId: requestId } }
 }
 
 /** Lender says no. The item stays available. */

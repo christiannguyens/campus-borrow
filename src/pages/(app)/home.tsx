@@ -1,28 +1,26 @@
 /**
- * Placeholder home page — replace this with the app's real home.
- *
- * This is intentionally unstyled scaffolding, not a design to build on.
- * Design the app's own look (layout, theme tokens, typography) from your
- * product's point of view instead of extending this page.
+ * Home — a short welcome that points students to the two main things to do.
+ * Served at /home (the logo in the nav links here).
  */
 
-import { useAuthProfileReady } from 'deepspace'
-import { APP_NAME } from '../../constants'
+import { Link } from 'react-router-dom'
+import { buttonVariants } from '@/components/ui'
 
 export default function HomePage() {
-  const { isSignedIn, user } = useAuthProfileReady({ requireUser: true })
-
   return (
-    <div className="flex min-h-full flex-col items-center justify-center gap-3 bg-background px-6 text-center text-foreground">
-      <h1 className="text-2xl font-semibold">{APP_NAME}</h1>
-      <p className="max-w-md text-sm text-muted-foreground">
-        This is a placeholder page. Replace <code>src/pages/(app)/home.tsx</code>{' '}
-        with the app&apos;s real home, and give the app its own theme in{' '}
-        <code>src/themes.css</code>.
+    <div className="flex min-h-full flex-col items-center justify-center gap-4 px-4 py-16 text-center text-foreground">
+      <h1 className="text-3xl font-bold tracking-tight">Campus Borrow</h1>
+      <p className="max-w-md text-muted-foreground">
+        Borrow what you need from other students, and lend what you're not using.
       </p>
-      {isSignedIn && user && (
-        <p className="text-sm text-muted-foreground">Signed in as {user.name ?? user.email}</p>
-      )}
+      <div className="flex flex-col gap-2 sm:flex-row">
+        <Link to="/browse" className={buttonVariants()}>
+          Browse items
+        </Link>
+        <Link to="/post-item" className={buttonVariants({ variant: 'outline' })}>
+          Post an item
+        </Link>
+      </div>
     </div>
   )
 }
