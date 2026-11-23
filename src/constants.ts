@@ -1,5 +1,7 @@
-/** App name — replaced by the CLI during scaffolding */
-export const APP_NAME = 'campus-borrow-christian'
+/** App name shown to people: nav logo, browser tab titles, link previews.
+ *  Display only. Data is keyed to APP_ID below, and the worker's own
+ *  APP_NAME setting lives separately in wrangler.toml. */
+export const APP_NAME = 'Campus Borrow'
 
 /** Immutable app identity — data scope keys to this, so renames never
  *  strand your records.

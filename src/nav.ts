@@ -20,7 +20,7 @@ export const nav: NavItem[] = [
   { path: '/post-item', label: 'Post item' },
   { path: '/my-items', label: 'My items' },
   { path: '/my-requests', label: 'My requests' },
-  { path: '/settings', label: 'Settings' },
+  // /settings still exists as a page; it's just not linked (the account menu covers sign-out).
   // The /api-status debug page still exists — add
   // `{ path: '/api-status', label: 'API Status', devOnly: true }` to surface it.
   // ── Features add nav items below this line ──

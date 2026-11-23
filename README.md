@@ -70,7 +70,7 @@ If you remove one of those checks, nothing else catches the mistake.
 
 ## Run locally
 
-Requires Node 22.15+ (or 24 / 26).
+Requires Node 22 (22.15 or later), 24 or 26.
 
 ```sh
 npm install

@@ -68,7 +68,7 @@ export default function MyItemsPage() {
                 key={item.recordId}
                 data-testid="my-item-card"
                 data-item-id={item.recordId}
-                className="rounded-lg border border-border bg-card p-4"
+                className="rounded-lg border border-border bg-card p-4 wrap-anywhere"
               >
                 <div className="flex flex-wrap items-center gap-2">
                   <h2 className="font-semibold">{item.data.name}</h2>

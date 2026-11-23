@@ -13,6 +13,10 @@ export default function HomePage() {
       <p className="max-w-md text-muted-foreground">
         Borrow what you need from other students, and lend what you're not using.
       </p>
+      <p className="max-w-md text-sm text-muted-foreground">
+        To try the full loop, use two accounts: one posts an item and approves, the other requests
+        it.
+      </p>
       <div className="flex flex-col gap-2 sm:flex-row">
         <Link to="/browse" className={buttonVariants()}>
           Browse items

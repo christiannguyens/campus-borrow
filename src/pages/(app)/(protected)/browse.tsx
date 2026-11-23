@@ -120,7 +120,7 @@ export default function BrowsePage() {
                 key={item.recordId}
                 data-testid="item-card"
                 data-item-id={item.recordId}
-                className="flex flex-col rounded-lg border border-border bg-card p-4"
+                className="flex flex-col rounded-lg border border-border bg-card p-4 wrap-anywhere"
               >
                 <div className="flex items-start justify-between gap-2">
                   <h2 className="font-semibold">{item.data.name}</h2>

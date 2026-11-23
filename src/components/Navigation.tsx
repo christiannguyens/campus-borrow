@@ -71,7 +71,9 @@ export default function Navigation() {
     <>
       <nav data-testid="app-navigation" className="border-b border-border bg-background">
         <div className="mx-auto flex h-12 max-w-7xl items-center gap-4 px-4">
-          <Link to="/home" className="text-sm font-semibold text-foreground">
+          {/* min-w-0 + truncate: on a narrow phone the name shortens with "…"
+              instead of wrapping and pushing the buttons out of the bar. */}
+          <Link to="/home" className="min-w-0 truncate text-sm font-semibold text-foreground">
             {APP_NAME}
           </Link>
 
@@ -136,7 +138,7 @@ export default function Navigation() {
             <button
               data-testid="nav-sign-in-button"
               onClick={() => setShowAuthModal(true)}
-              className="rounded-md bg-primary px-3 py-1.5 text-sm font-medium text-primary-foreground hover:opacity-90"
+              className="shrink-0 whitespace-nowrap rounded-md bg-primary px-3 py-1.5 text-sm font-medium text-primary-foreground hover:opacity-90"
             >
               Sign in
             </button>

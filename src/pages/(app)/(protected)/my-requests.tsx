@@ -56,7 +56,7 @@ export default function MyRequestsPage() {
                 key={req.recordId}
                 data-testid="my-request"
                 data-request-id={req.recordId}
-                className="rounded-lg border border-border bg-card p-4"
+                className="rounded-lg border border-border bg-card p-4 wrap-anywhere"
               >
                 <div className="flex flex-wrap items-center gap-2">
                   <h2 className="font-semibold">{item?.data.name ?? 'Item no longer listed'}</h2>
